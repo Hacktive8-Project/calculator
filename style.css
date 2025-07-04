@@ -1,3 +1,4 @@
+/* Reset dan Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -5,160 +6,470 @@
 }
 
 body {
-  font-family: "Arial", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-.container {
-  padding: 20px;
+/* Container */
+.calculator-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  padding: 25px;
+  backdrop-filter: blur(10px);
 }
 
 .calculator {
-  background: #1a1a1a;
-  border-radius: 20px;
-  padding: 20px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-  max-width: 400px;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+}
+
+/* Header */
+.calculator-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.calculator-header h1 {
+  font-size: 24px;
+  color: #333;
+  font-weight: 600;
+}
+
+.mode-toggles {
+  display: flex;
+  gap: 5px;
+}
+
+.mode-btn {
+  padding: 5px 15px;
+  border: none;
+  background: #e0e0e0;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.mode-btn.active {
+  background: #667eea;
+  color: white;
+}
+
+/* Display Section */
+.display-section {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.history-display {
+  font-size: 14px;
+  color: #666;
+  min-height: 20px;
+  padding: 5px 10px;
+  background: #f5f5f5;
+  border-radius: 10px 10px 0 0;
+  text-align: right;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.main-display {
+  position: relative;
 }
 
 .display {
-  background: #2d2d2d;
-  border-radius: 10px;
+  width: 100%;
   padding: 20px;
-  margin-bottom: 20px;
+  font-size: 32px;
   text-align: right;
-  min-height: 100px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  border: none;
+  background: #2d3436;
+  color: white;
+  border-radius: 0 0 10px 10px;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.memory-indicator {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff6b6b;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+  display: none;
+}
+
+.memory-indicator.active {
+  display: block;
+}
+
+/* Button Styles */
+.btn {
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  position: relative;
   overflow: hidden;
 }
 
-.previous-operand {
-  color: #888;
-  font-size: 18px;
-  min-height: 25px;
+.btn:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
 }
 
-.current-operand {
-  color: #fff;
-  font-size: 36px;
-  font-weight: 300;
-  word-wrap: break-word;
-  word-break: break-all;
-}
-
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-
-.btn {
-  background: #3d3d3d;
-  border: none;
-  border-radius: 10px;
-  padding: 25px;
-  font-size: 20px;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  outline: none;
+.btn:active:before {
+  width: 300px;
+  height: 300px;
 }
 
 .btn:hover {
-  background: #4d4d4d;
   transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn:active {
   transform: translateY(0);
-  background: #2d2d2d;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.btn.number {
-  background: #4d4d4d;
+/* Button Categories */
+.number-btn {
+  background: #f0f0f0;
+  color: #333;
 }
 
-.btn.number:hover {
-  background: #5d5d5d;
+.number-btn:hover {
+  background: #e0e0e0;
 }
 
-.btn.operator {
+.operator-btn {
   background: #ff9500;
-  font-weight: bold;
+  color: white;
 }
 
-.btn.operator:hover {
-  background: #ffb143;
+.operator-btn:hover {
+  background: #e08600;
 }
 
-.btn.operator:active,
-.btn.operator.active {
-  background: #cc7700;
+.function-btn {
+  background: #667eea;
+  color: white;
 }
 
-.btn.function {
-  background: #a5a5a5;
-  color: #1a1a1a;
-  font-weight: bold;
+.function-btn:hover {
+  background: #5a67d8;
 }
 
-.btn.function:hover {
-  background: #c5c5c5;
+.memory-btn {
+  background: #48dbfb;
+  color: white;
 }
 
-.btn.equals {
-  background: #4caf50;
-  grid-column: span 2;
-  font-weight: bold;
+.memory-btn:hover {
+  background: #0abde3;
 }
 
-.btn.equals:hover {
-  background: #5cbf60;
+.clear-btn {
+  background: #ee5a6f;
+  color: white;
 }
 
-.btn.zero {
-  grid-column: span 2;
+.clear-btn:hover {
+  background: #e83e53;
+}
+
+.equals-btn {
+  background: #10ac84;
+  color: white;
+  grid-column: span 1;
+}
+
+.equals-btn:hover {
+  background: #0e9b75;
+}
+
+/* Grid Layouts */
+.scientific-functions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.memory-functions {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.main-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.additional-functions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.scientific-functions .btn,
+.memory-functions .btn,
+.additional-functions .btn {
+  padding: 12px 8px;
+  font-size: 14px;
+}
+
+.main-buttons .btn {
+  padding: 20px;
+  font-size: 20px;
+}
+
+/* History Panel */
+.history-panel {
+  position: absolute;
+  top: 0;
+  right: -320px;
+  width: 300px;
+  height: 100%;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  transition: right 0.3s ease;
+  z-index: 10;
+}
+
+.history-panel.active {
+  right: -320px;
+}
+
+.calculator-container.history-open .history-panel {
+  right: -320px;
+}
+
+/* Alternative: History as overlay */
+.history-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 400px;
+  height: 80%;
+  max-height: 500px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  display: none;
+  z-index: 100;
+}
+
+.history-panel.active {
+  display: block;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.history-header h3 {
+  font-size: 18px;
+  color: #333;
+}
+
+.clear-history-btn {
+  padding: 5px 15px;
+  background: #ee5a6f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.3s ease;
+}
+
+.clear-history-btn:hover {
+  background: #e83e53;
+}
+
+.history-list {
+  overflow-y: auto;
+  max-height: 400px;
+}
+
+.history-item {
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.history-item:hover {
+  background: #e9ecef;
+}
+
+.history-expression {
+  font-size: 14px;
+  color: #666;
+}
+
+.history-result {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-top: 5px;
+}
+
+.toggle-history-btn {
+  width: 100%;
+  padding: 12px;
+  background: #667eea;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.toggle-history-btn:hover {
+  background: #5a67d8;
+}
+
+/* Overlay for history panel */
+.history-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 99;
+}
+
+.history-overlay.active {
+  display: block;
 }
 
 /* Responsive Design */
-@media (max-width: 480px) {
-  .calculator {
+@media (max-width: 600px) {
+  .calculator-container {
     padding: 15px;
   }
 
-  .btn {
-    padding: 20px;
+  .calculator-header h1 {
+    font-size: 20px;
+  }
+
+  .display {
+    font-size: 24px;
+    padding: 15px;
+  }
+
+  .main-buttons .btn {
+    padding: 15px;
     font-size: 18px;
   }
 
-  .current-operand {
-    font-size: 28px;
+  .scientific-functions,
+  .memory-functions,
+  .additional-functions {
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  .previous-operand {
-    font-size: 16px;
+  .scientific-functions .btn,
+  .memory-functions .btn,
+  .additional-functions .btn {
+    padding: 10px 5px;
+    font-size: 12px;
   }
 }
 
-/* Animasi */
-@keyframes buttonPress {
-  0% {
-    transform: scale(1);
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  50% {
-    transform: scale(0.95);
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.history-item {
+  animation: fadeIn 0.3s ease;
+}
+
+/* Error State */
+.display.error {
+  color: #ff6b6b;
+}
+
+/* Loading Animation */
+.calculating {
+  position: relative;
+}
+
+.calculating::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: translateY(-50%) rotate(0deg);
   }
   100% {
-    transform: scale(1);
+    transform: translateY(-50%) rotate(360deg);
   }
-}
-
-.btn.pressed {
-  animation: buttonPress 0.2s ease;
 }
