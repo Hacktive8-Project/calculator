@@ -151,15 +151,20 @@
         </div>
 
         <!-- History Panel -->
-        <div class="history-panel" id="historyPanel">
+        <div id="historyPanel" class="history-panel">
           <div class="history-header">
-            <h3>Riwayat Perhitungan</h3>
+            <h3>Riwayat</h3>
             <button class="clear-history-btn" onclick="clearHistory()">
               Hapus Riwayat
             </button>
           </div>
-          <div class="history-list" id="historyList"></div>
+          <div id="historyList" class="history-list"></div>
         </div>
+        <div
+          id="historyOverlay"
+          class="history-overlay"
+          onclick="toggleHistory()"
+        ></div>
 
         <!-- Toggle History Button -->
         <button class="toggle-history-btn" onclick="toggleHistory()">
