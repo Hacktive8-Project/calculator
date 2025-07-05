@@ -34,6 +34,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Create overlay for history panel
   createHistoryOverlay();
+
+  // Toggle history button event listener
+  document
+    .getElementById("toggleHistoryBtn")
+    .addEventListener("click", toggleHistory);
 });
 
 // Display Functions
@@ -311,17 +316,25 @@ function cube() {
 
 function factorial() {
   try {
-    const value = evaluateExpression(prepareExpression(currentExpression));
-    if (value < 0 || value % 1 !== 0) {
-      throw new Error("Invalid input for factorial");
+    // Get the number from currentExpression
+    let number = evaluateExpression(prepareExpression(currentExpression));
+
+    // Validate the number
+    if (number < 0 || !Number.isInteger(number)) {
+      throw new Error("Input must be a non-negative integer.");
     }
+
+    // Calculate factorial
     let result = 1;
-    for (let i = 2; i <= value; i++) {
+    for (let i = 1; i <= number; i++) {
       result *= i;
     }
+
+    // Update currentExpression and display
     currentExpression = result.toString();
     updateDisplay();
   } catch (error) {
+    // Handle error
     currentExpression = "Error";
     updateDisplay();
   }
@@ -433,8 +446,19 @@ function loadHistory() {
 }
 
 function toggleHistory() {
+  const historyPanel = document.getElementById("historyPanel");
+  const historyOverlay = document.getElementById("historyOverlay");
+
+  // Toggle visibility of history panel and overlay
   historyPanel.classList.toggle("active");
-  document.getElementById("historyOverlay").classList.toggle("active");
+  historyOverlay.classList.toggle("active");
+
+  // Ensure overlay is clickable to close the history panel
+  if (historyOverlay.classList.contains("active")) {
+    historyOverlay.style.display = "block";
+  } else {
+    historyOverlay.style.display = "none";
+  }
 }
 
 function createHistoryOverlay() {
